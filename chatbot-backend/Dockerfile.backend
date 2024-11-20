@@ -1,0 +1,16 @@
+FROM node:18
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+COPY src/db/init.sql /usr/src/app/init.sql
+
+RUN npx tsc
+
+EXPOSE 5000
+
+CMD ["node", "dist/server.js"]
